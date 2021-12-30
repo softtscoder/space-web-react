@@ -17,8 +17,12 @@ a {
 
 html,
 body,
-body > div:first-child,
+body > div:first-child {
+  height: 100%;
+}
+
+/* Production
 div#__next,
 div#__next > div {
   height: 100%;
-}
+} */

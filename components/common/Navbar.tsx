@@ -1,21 +1,23 @@
 import {
   Divider,
   Grid,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
   Box,
   Text,
   useColorModeValue,
+  Center,
 } from "@chakra-ui/react";
 import NextImage from "next/image";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
 import { nav } from "utils";
-console.log(nav.return());
+
+// console.log(nav._bordorColor);
 export interface NavbarProps {}
 
 export const Navbar = ({}: NavbarProps) => {
+  const router = useRouter();
+
   return (
     <Grid
       autoFlow="column"
@@ -34,9 +36,9 @@ export const Navbar = ({}: NavbarProps) => {
 
       <Grid
         autoFlow="column"
-        alignItems="center"
+        justifyContent="space-evenly"
         background="rgba(255, 255, 255, 0.04);"
-        backdrop-filter="blur(81.5485px)"
+        backdropFilter="blur(81.5485px)"
         width="830px"
         height="96px"
         position="relative"
@@ -45,43 +47,43 @@ export const Navbar = ({}: NavbarProps) => {
         <Divider
           position="absolute"
           left="-35%"
+          top="50%"
           w="300px"
           mixBlendMode="normal"
           opacity="0.25"
         />
-        <Menu>
-          <MenuButton {...nav.return()}>00 Home</MenuButton>
-          <MenuList>
-            <MenuItem>Jeans</MenuItem>
-            <MenuDivider />
-            <MenuItem>Hoodie</MenuItem>
-            <MenuDivider />
-            <MenuItem>Short</MenuItem>
-          </MenuList>
-        </Menu>
-        <Menu>
-          <MenuButton {...nav.return()}>01 Destination</MenuButton>
-          <MenuList>
-            <MenuItem>Trending</MenuItem>
-            <MenuItem>People&apos;s choice</MenuItem>
-          </MenuList>
-        </Menu>
-        <Menu>
-          <MenuButton {...nav.return()}>02 Crew</MenuButton>
-          <MenuList>
-            <MenuItem>2021 Christmas Collection</MenuItem>
-            <MenuItem>November Collection</MenuItem>
-            <MenuItem>New York Collection</MenuItem>
-          </MenuList>
-        </Menu>
-        <Menu>
-          <MenuButton {...nav.return()}>03 Technology</MenuButton>
-          <MenuList>
-            <MenuItem>2021 Christmas Collection</MenuItem>
-            <MenuItem>November Collection</MenuItem>
-            <MenuItem>New York Collection</MenuItem>
-          </MenuList>
-        </Menu>
+        {["home", "destination", "crew", "technology"].map((name, idx) => (
+          <Center
+            key={`nav-${name}`}
+            {...nav.return()}
+            borderBottom={
+              router.pathname === name || name === "home"
+                ? `2px solid ${nav._bordorColor?.active}`
+                : undefined
+            }
+            _hover={{
+              borderBottom: `2px solid ${nav._bordorColor?.hover}`,
+              mixBlendMode: "normal",
+              opacity: "0.5",
+            }}
+          >
+            <NextLink href={`/${name}`} as={name === "home" ? "/" : undefined}>
+              <a>
+                <Text
+                  _first={{
+                    fontWeight: "medium",
+                  }}
+                  _last={{
+                    textTransform: "uppercase",
+                  }}
+                >
+                  <span>0{idx}&nbsp;</span>
+                  <span>{name}</span>
+                </Text>
+              </a>
+            </NextLink>
+          </Center>
+        ))}
       </Grid>
     </Grid>
   );

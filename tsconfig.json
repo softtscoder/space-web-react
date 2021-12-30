@@ -20,7 +20,9 @@
     "baseUrl": "./", // ./ == cung folder voi file nay
     "paths": {
       "@/components/*": [
-        "./components/*"
+        "./components/*",
+        "../common",
+        "../helper"
       ],
       "@/models/*": [
         "./models/*"

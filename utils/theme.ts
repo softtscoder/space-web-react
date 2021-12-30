@@ -8,13 +8,22 @@ export const theme = extendTheme({
     custom: {
       1: "#0b0d17",
       2: "#d0d6f9",
-      //   3: "#ffffff", = white
+      3: "#ffffff",
     },
   },
   fonts: {
     bellefair: "Bellefair, serif",
-    barlow_condensed: "Barlow Condensed, sans-serif;",
-    body: "Bellefair, serif", // default font
+    barlow_condensed: "Barlow Condensed, sans-serif",
+    body: "Barlow, sans-serif",
+  },
+  components: {
+    Text: {
+      baseStyle: {
+        fontSize: "18px",
+        fontFamily: "Barlow, sans-serif",
+        color: "#d0d6f9", // colors.custom[2],
+      },
+    },
   },
 });
 
@@ -25,20 +34,26 @@ export const theme = extendTheme({
 interface Heading {
   fontFamily: string;
   fontSize: string;
-  textTransform: any;
+  textTransform: string;
   letterSpacing?: string;
-  color?: any;
+  _bordorColor?: {
+    active: string;
+    hover: string;
+  };
+  color?: string;
   return: () => object;
 }
 export const heading: Heading = {
   fontFamily: "bellefair",
   fontSize: "30px",
   textTransform: "uppercase",
+  color: "white",
   return() {
     return {
       fontFamily: this.fontFamily,
       fontSize: this.fontSize,
       textTransform: this.textTransform,
+      color: this.color,
     };
   },
 };
@@ -64,6 +79,7 @@ const heading_2: Heading = {
   fontFamily: "barlow_condensed",
   fontSize: "20px",
   textTransform: "uppercase",
+  color: "white",
   return() {
     return {
       fontFamily: this.fontFamily,
@@ -77,6 +93,7 @@ const heading_2: Heading = {
 export const h5: Heading = Object.create(heading_2);
 h5.fontSize = "28px";
 h5.letterSpacing = "4.75px";
+h5.color = theme.colors.custom[2];
 
 export const listSubH2: Heading = Object.create(heading_2);
 listSubH2.fontSize = "14px";
@@ -85,3 +102,7 @@ listSubH2.letterSpacing = "2.35px";
 export const nav: Heading = Object.create(heading_2);
 nav.fontSize = "16px";
 nav.letterSpacing = "2.7px";
+nav._bordorColor = {
+  active: theme.colors.custom[3],
+  hover: theme.colors.custom[3],
+};
