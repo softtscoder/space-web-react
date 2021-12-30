@@ -6,7 +6,7 @@ import NextDocument, {
   NextScript,
   DocumentContext,
 } from "next/document";
-import { theme } from "@/utils/index";
+import { theme } from "utils";
 
 export default class Document extends NextDocument {
   static async getInitialProps(ctx: DocumentContext) {
