@@ -52,9 +52,7 @@ export const Navbar = ({}: NavbarProps) => {
           <Center
             key={`nav-${name}`}
             position="relative"
-            // Please note that we are passing the styles to the prop __css.
-            // It has the same API as the sx prop, but has a lower style priority.
-            // Ex: Overrride __css with style props (my, mx, __hover,... - not `style`)
+            // https://github.com/chakra-ui/chakra-ui/discussions/5306
             sx={{
               "&:hover hr": {
                 borderBottom: `2px solid ${nav._bordorColor?.hover}`,

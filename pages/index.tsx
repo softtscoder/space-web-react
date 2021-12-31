@@ -3,8 +3,9 @@ import { Navbar } from "@/components/common";
 import { Box, Center, Grid, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { h1, h2, h4, h5 } from "utils";
+import { CenterMotion } from "@/components/helper";
 
-console.log(h1.fontSize, h2.fontSize);
+// console.log(h5);
 
 const Home: NextPage = () => {
   return (
@@ -43,7 +44,7 @@ const Home: NextPage = () => {
           </Box>
           <Text
             maxW={{ mobile: "600", desktop: "450" }}
-            px={{mobile: "4", tablet: "0"}}
+            px={{ mobile: "4", tablet: "0" }}
             fontSize={{
               mobile: "15px",
               tablet: "16px",
@@ -60,16 +61,40 @@ const Home: NextPage = () => {
 
         <Center
           {...h4.return()}
-          style={{
+          fontSize={{ mobile: "14px", tablet: h4.fontSize }}
+          __css={{
             aspectRatio: "1",
           }}
           borderRadius="50%"
-          bg="white"
+          p={{ mobile: "4", tablet: "10" }}
+          position="relative"
+          bgColor="white"
           color="custom.1"
           letterSpacing="2px"
-          p="10"
         >
           Explore
+          <CenterMotion
+            __css={{
+              aspectRatio: "1",
+            }}
+            width="100%"
+            height="100%"
+            borderRadius="50%"
+            position="absolute"
+            bgColor="rgba(255,255,255,0.1)"
+            mixBlendMode="normal"
+            initial={{
+              scale: 1,
+              opacity: 0,
+            }}
+            whileHover={{
+              scale: 1.5,
+              opacity: 1,
+            }}
+            transition={{
+              duration: 0.5,
+            }}
+          />
         </Center>
       </Grid>
     </Box>
