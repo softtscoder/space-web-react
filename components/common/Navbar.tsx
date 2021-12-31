@@ -56,15 +56,14 @@ export const Navbar = ({}: NavbarProps) => {
           <Center
             key={`nav-${name}`}
             {...nav.return()}
-            borderBottom={
-              router.pathname === name || name === "home"
-                ? `2px solid ${nav._bordorColor?.active}`
-                : undefined
-            }
-            _hover={{
-              borderBottom: `2px solid ${nav._bordorColor?.hover}`,
-              mixBlendMode: "normal",
-              opacity: "0.5",
+            position="relative"
+            sx={{
+              "&:hover hr": {
+                borderBottom: `2px solid ${nav._bordorColor?.hover}`,
+                transform: "scaleX(1) !important",
+                mixBlendMode: "normal",
+                opacity: "0.5",
+              },
             }}
           >
             <NextLink href={`/${name}`} as={name === "home" ? "/" : undefined}>
@@ -82,6 +81,23 @@ export const Navbar = ({}: NavbarProps) => {
                 </Text>
               </a>
             </NextLink>
+            <Divider
+              __css={{
+                borderBottom:
+                  router.pathname === name || name === "home"
+                    ? `2px solid ${nav._bordorColor?.active}`
+                    : `2px solid ${nav._bordorColor?.hover}`,
+                position: "absolute",
+                bottom: 0,
+                overflow: "hidden",
+                transform:
+                  router.pathname === name || name === "home"
+                    ? "scaleX(1)"
+                    : "scaleX(0)",
+                transition: "transform 275ms ease",
+              }}
+              aria-hidden="true"
+            />
           </Center>
         ))}
       </Grid>
