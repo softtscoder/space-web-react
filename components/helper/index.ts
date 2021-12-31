@@ -1,2 +1,2 @@
 export * from "./NextLinkHelper"
-export * from "./framer-motion"
+export * from "./FramerMotionHelper"

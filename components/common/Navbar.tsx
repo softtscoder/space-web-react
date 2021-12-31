@@ -6,11 +6,28 @@ import {
   useColorModeValue,
   Center,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import NextImage from "next/image";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { nav } from "utils";
+import { CustomVariants } from "@/components/helper";
+
+const svgVariants : CustomVariants = {
+  hidden: {
+    // scale: 0,
+  },
+  visible: {
+    // scale: 1,
+    rotate: [0, 360],
+    transition: { repeat: "Infinity", duration: 2, ease: "linear" },
+  },
+  whileHover: {
+    scale: 1.5,
+    transition: { duration: 0.5, ease: "linear" },
+  },
+};
 
 // console.log(nav._bordorColor);
 export interface NavbarProps {}
@@ -29,12 +46,20 @@ export const Navbar = ({}: NavbarProps) => {
         desktop: "20px 22.5px", // py px
       }}
     >
-      <NextImage
+      {/* <NextImage
         src="/assets/shared/logo.svg"
         alt="logo"
         width="48"
         height="48"
         layout="fixed"
+      /> */}
+      <motion.img
+        src="/assets/shared/logo.svg"
+        alt="logo"
+        variants={svgVariants}
+        initial="hidden"
+        animate="visible"
+        whileHover="whileHover"
       />
 
       <Grid
