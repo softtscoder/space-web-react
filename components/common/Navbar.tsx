@@ -55,8 +55,10 @@ export const Navbar = ({}: NavbarProps) => {
         {["home", "destination", "crew", "technology"].map((name, idx) => (
           <Center
             key={`nav-${name}`}
-            {...nav.return()}
             position="relative"
+            // Please note that we are passing the styles to the prop __css.
+            // It has the same API as the sx prop, but has a lower style priority.
+            // Ex: Overrride __css with style props (my, mx, __hover,... - not `style`)
             sx={{
               "&:hover hr": {
                 borderBottom: `2px solid ${nav._bordorColor?.hover}`,
@@ -69,11 +71,11 @@ export const Navbar = ({}: NavbarProps) => {
             <NextLink href={`/${name}`} as={name === "home" ? "/" : undefined}>
               <a>
                 <Text
-                  _first={{
-                    fontWeight: "medium",
-                  }}
-                  _last={{
-                    textTransform: "uppercase",
+                  {...nav.return()}
+                  sx={{
+                    "& > span:first-child": {
+                      fontWeight: "bold",
+                    },
                   }}
                 >
                   <span>0{idx}&nbsp;</span>
@@ -82,20 +84,20 @@ export const Navbar = ({}: NavbarProps) => {
               </a>
             </NextLink>
             <Divider
-              __css={{
-                borderBottom:
-                  router.pathname === name || name === "home"
-                    ? `2px solid ${nav._bordorColor?.active}`
-                    : `2px solid ${nav._bordorColor?.hover}`,
-                position: "absolute",
-                bottom: 0,
-                overflow: "hidden",
-                transform:
-                  router.pathname === name || name === "home"
-                    ? "scaleX(1)"
-                    : "scaleX(0)",
-                transition: "transform 275ms ease",
-              }}
+              borderBottom={
+                router.pathname === name || name === "home"
+                  ? `2px solid ${nav._bordorColor?.active}`
+                  : `2px solid ${nav._bordorColor?.hover}`
+              }
+              position="absolute"
+              bottom="0"
+              overflow="hidden"
+              transform={
+                router.pathname === name || name === "home"
+                  ? "scaleX(1)"
+                  : "scaleX(0)"
+              }
+              transition="transform 275ms ease"
               aria-hidden="true"
             />
           </Center>
