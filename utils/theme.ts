@@ -1,5 +1,6 @@
 // 1. Import `extendTheme`
 import { extendTheme } from "@chakra-ui/react";
+import { createBreakpoints } from "@chakra-ui/theme-tools";
 
 // 2. Call `extendTheme` and pass your custom values
 // Cac gia tri duoc pass vao: https://chakra-ui.com/docs/theming/theme
@@ -25,6 +26,19 @@ export const theme = extendTheme({
       },
     },
   },
+  // Watchout typo "breakpoint" !== "breakpoints"
+  breakpoints: createBreakpoints({
+    // Default (in px unit)
+    sm: "320px",
+    md: "768px",
+    lg: "960px",
+    xl: "1200px",
+    "2xl": "1536px",
+    // Custom
+    mobile: "375px",
+    tablet: "768px",
+    desktop: "1440px",
+  }),
 });
 
 // 3. Code suggestion

@@ -23,8 +23,11 @@ export const Navbar = ({}: NavbarProps) => {
       autoFlow="column"
       alignItems="center"
       justifyContent="space-between"
-      px="22.5px"
-      py="20px"
+      p={{
+        mobile: "24px 0 0 24px",
+        tablet: "0 0 0 24px",
+        desktop: "20px 22.5px", // py px
+      }}
     >
       <NextImage
         src="/assets/shared/logo.svg"
@@ -35,23 +38,16 @@ export const Navbar = ({}: NavbarProps) => {
       />
 
       <Grid
+        display={{ mobile: "none", tablet: "grid" }}
+        width={{ tablet: "450px", desktop: "830px" }}
+        height="96px"
         autoFlow="column"
         justifyContent="space-evenly"
         background="rgba(255, 255, 255, 0.04);"
         backdropFilter="blur(81.5485px)"
-        width="830px"
-        height="96px"
         position="relative"
         color={useColorModeValue("white", "black")}
       >
-        <Divider
-          position="absolute"
-          left="-35%"
-          top="50%"
-          w="300px"
-          mixBlendMode="normal"
-          opacity="0.25"
-        />
         {["home", "destination", "crew", "technology"].map((name, idx) => (
           <Center
             key={`nav-${name}`}
@@ -72,36 +68,44 @@ export const Navbar = ({}: NavbarProps) => {
               <a>
                 <Text
                   {...nav.return()}
-                  sx={{
-                    "& > span:first-child": {
-                      fontWeight: "bold",
-                    },
-                  }}
+                  display={{ mobile: "none", desktop: "inline-block" }}
+                  fontWeight="bold"
                 >
-                  <span>0{idx}&nbsp;</span>
-                  <span>{name}</span>
+                  0{idx}&nbsp;
+                </Text>
+                <Text as="span" {...nav.return()}>
+                  {name}
                 </Text>
               </a>
             </NextLink>
             <Divider
-              borderBottom={
-                router.pathname === name || name === "home"
-                  ? `2px solid ${nav._bordorColor?.active}`
-                  : `2px solid ${nav._bordorColor?.hover}`
-              }
+              {...(router.pathname === name || name === "home"
+                ? {
+                    opacity: "1",
+                    borderBottom: `2px solid ${nav._bordorColor?.active}`,
+                    transform: "scaleX(1)",
+                  }
+                : {
+                    opacity: "0.5",
+                    borderBottom: `2px solid ${nav._bordorColor?.hover}`,
+                    transform: "scaleX(0)",
+                  })}
               position="absolute"
               bottom="0"
               overflow="hidden"
-              transform={
-                router.pathname === name || name === "home"
-                  ? "scaleX(1)"
-                  : "scaleX(0)"
-              }
               transition="transform 275ms ease"
               aria-hidden="true"
             />
           </Center>
         ))}
+        <Divider
+          position="absolute"
+          left={{ mobile: "0", desktop: "-25%" }}
+          top="50%"
+          w={{ mobile: "0", desktop: "30%" }}
+          mixBlendMode="normal"
+          opacity="0.25"
+        />
       </Grid>
     </Grid>
   );
