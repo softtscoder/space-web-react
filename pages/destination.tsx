@@ -10,6 +10,7 @@ import {
   Tabs,
   Text,
   Divider,
+  useTab,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { h1, h2, h4, h5, nav, listSubH1, listSubH2 } from "utils";
@@ -19,6 +20,10 @@ import {
   CustomVariants,
   TabMotion,
 } from "@/components/helper";
+import NextImage from "next/image";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+import React from "react";
 
 // console.log(h5);
 
@@ -37,6 +42,20 @@ const content = [
     distance: "255 mil. km",
     travel_time: "9 months",
   },
+  {
+    name: "europa",
+    content:
+      "The smallest of the four Galilean moons orbiting Jupiter, Europa is a winter lover’s dream. With an icy surface, it’s perfect for a bit of ice skating, curling, hockey, or simple relaxation in your snug wintery cabin",
+    distance: "628 mil. km",
+    travel_time: "3 years",
+  },
+  {
+    name: "titan",
+    content:
+      "The only moon known to have a dense atmosphere other than Earth, Titan is a home away from home (just a few hundred degrees colder!). As a bonus, you get striking views of the Rings of Saturn",
+    distance: "1.6 bil. km",
+    travel_time: "7 years",
+  },
 ];
 
 const boxVariants: CustomVariants = {
@@ -49,6 +68,8 @@ const boxVariants: CustomVariants = {
 };
 
 const Destination: NextPage = () => {
+  const [CurrentTab, setCurrentTab] = React.useState("moon"); // first load
+
   return (
     <Box
       backgroundImage={{
@@ -57,54 +78,47 @@ const Destination: NextPage = () => {
         desktop: "/assets/destination/background-destination-desktop.jpg",
       }}
       backgroundRepeat="no-repeat"
-      backgroundSize="cover" 
+      backgroundSize="cover"
     >
       <Navbar />
       <Grid
         autoFlow={{ mobile: "row", desktop: "column" }}
         justifyContent={{ mobile: "unset", desktop: "space-around" }}
-        alignItems={{ mobile: "unset", desktop: "end" }}
+        alignItems={{ mobile: "unset", desktop: "center" }}
         justifyItems={{ mobile: "center", desktop: "unset" }}
         gap={{ mobile: "20", desktop: "0" }}
         py="32"
       >
-        <Center
-          {...h4.return()}
-          fontSize={{ mobile: "14px", tablet: h4.fontSize }}
-          __css={{
-            aspectRatio: "1",
-          }}
-          position="relative"
-          borderRadius="50%"
-          p={{ mobile: "4", tablet: "10" }}
-          bgColor="white"
-          color="custom.1"
-          letterSpacing="2px"
-        >
-          Explore
-          <CenterMotion
-            __css={{
-              aspectRatio: "1",
-            }}
-            width="100%"
-            height="100%"
-            borderRadius="50%"
-            position="absolute"
-            bgColor="rgba(255,255,255,0.1)"
-            mixBlendMode="normal"
-            initial={{
-              scale: 1,
-              opacity: 0,
+        <Box>
+          <Text {...h5.return()} mb="20">
+            <Box
+              as="span"
+              mr="28px"
+              color="white"
+              mixBlendMode="normal"
+              opacity="0.25"
+            >
+              01
+            </Box>
+            Pick your destination
+          </Text>
+          <motion.div
+            animate={{
+              rotate: [0, 360],
+              transition: { duration: 60, ease: "linear", repeat: Infinity },
             }}
             whileHover={{
-              scale: 1.5,
-              opacity: 1,
+              scale: 1.1,
             }}
-            transition={{
-              duration: 0.5,
-            }}
-          />
-        </Center>
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <NextImage
+              src={`/assets/destination/image-${CurrentTab}.webp`}
+              width="400"
+              height="400"
+            />
+          </motion.div>
+        </Box>
 
         <Tabs variant="unstyled" isLazy maxW="600" color="white">
           <TabList>
@@ -112,6 +126,8 @@ const Destination: NextPage = () => {
               <Tab
                 key={`tab-${tab.name}`}
                 {...nav.return()}
+                color={CurrentTab === tab.name ? nav.color : "custom.2"}
+                onClick={() => setCurrentTab(tab.name)}
                 _selected={{
                   borderBottom: `2px solid ${nav._bordorColor?.active}`,
                 }}
@@ -137,8 +153,8 @@ const Destination: NextPage = () => {
             {content.map((tab, index) => (
               <TabPanel p={4} key={`tab-${tab.name}`}>
                 <Text {...h2.return()}>{tab.name}</Text>
-                <Text>{tab.content}</Text>
-                <Divider my="10" borderColor="#383B4B" />
+                <Text maxW="440px">{tab.content}</Text>
+                <Divider mt="20" mb="10" borderColor="#383B4B" />
                 <Grid autoFlow="column">
                   <Box>
                     <Text {...listSubH2.return()} color="custom.2">
@@ -157,47 +173,6 @@ const Destination: NextPage = () => {
             ))}
           </TabPanels>
         </Tabs>
-
-        {/* <BoxMotion
-          textAlign={{ mobile: "center", desktop: "start" }}
-          variants={boxVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <Box>
-            <Text
-              {...h5.return()}
-              fontSize={{
-                mobile: "16px",
-                tablet: "20px",
-                desktop: h5.fontSize,
-              }}
-            >
-              So, you want to travel to
-            </Text>
-            <Text
-              {...h1.return()}
-              fontSize={{ mobile: h2.fontSize, tablet: h1.fontSize }}
-            >
-              Space
-            </Text>
-          </Box>
-          <Text
-            maxW={{ mobile: "600", desktop: "450" }}
-            px={{ mobile: "4", tablet: "0" }}
-            fontSize={{
-              mobile: "15px",
-              tablet: "16px",
-              desktop: "18px",
-            }}
-            // fontSize=""
-          >
-            Let&#39;s face it. If you want to go to space, you might as well
-            genuinely go to outer space and not hover kind of on the edge of it.
-            Well sit back, and relax because we&#39;ll give you a truly out of
-            this world experience!
-          </Text>
-        </BoxMotion> */}
       </Grid>
     </Box>
   );
