@@ -1,35 +1,33 @@
 import {
   Divider,
   Grid,
-  Box,
   Text,
   useColorModeValue,
   Center,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import NextImage from "next/image";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
 import { nav } from "utils";
 import {
-  CustomVariants,
   _afterUnderlineStyle,
   _sxHoverAfterUnderlineStyle,
+  RotateWithZoomVariantProps,
+  routerShallowPush,
 } from "@/components/helper";
 
-const svgVariants: CustomVariants = {
-  hidden: {
-    // scale: 0,
-  },
+const logoVariants: RotateWithZoomVariantProps = {
   visible: {
-    // scale: 1,
     rotate: [0, 360],
-    transition: { repeat: "Infinity", duration: 2, ease: "linear" },
+    transition: { duration: 2, ease: "linear", repeat: Infinity }, // for rotate
   },
-  whileHover: {
-    scale: 1.5,
-    transition: { duration: 0.5, ease: "linear" },
+  hover: {
+    scale: 1.3,
+  },
+  // for hover
+  hoverTransition: {
+    duration: 1,
+    ease: "linear",
   },
 };
 
@@ -38,6 +36,7 @@ export interface NavbarProps {}
 
 export const Navbar = ({}: NavbarProps) => {
   const router = useRouter();
+
 
   return (
     <Grid
@@ -49,21 +48,33 @@ export const Navbar = ({}: NavbarProps) => {
         tablet: "0 0 0 24px",
         desktop: "20px 22.5px", // py px
       }}
+
     >
-      {/* <NextImage
-        src="/assets/shared/logo.svg"
-        alt="logo"
-        width="48"
-        height="48"
-        layout="fixed"
-      /> */}
+      {/* Ko dung vi logo size nho
+      <motion.div
+        variants={logoVariants}
+        animate="visible"
+        whileHover="hover"
+        transition={logoVariants.hoverTransition}
+      >
+        <NextImage
+          src="/assets/shared/logo.svg"
+          alt="logo"
+          width="48"
+          height="48"
+        />
+      </motion.div> */}
       <motion.img
         src="/assets/shared/logo.svg"
         alt="logo"
-        variants={svgVariants}
-        initial="hidden"
+        variants={logoVariants}
         animate="visible"
-        whileHover="whileHover"
+        whileHover="hover"
+        transition={logoVariants.hoverTransition}
+        onClick={() => routerShallowPush(router, "/")}
+        style={{
+          cursor: "pointer",
+        }}
       />
 
       <Grid

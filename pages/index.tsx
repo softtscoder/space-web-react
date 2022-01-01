@@ -3,20 +3,39 @@ import { Navbar } from "@/components/common";
 import { Box, Center, Grid, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { h1, h2, h4, h5 } from "utils";
-import { BoxMotion, CenterMotion, CustomVariants } from "@/components/helper";
+import { CustomVariantsProps, routerShallowPush } from "@/components/helper";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 // console.log(h5);
 
-const boxVariants: CustomVariants = {
-  hidden: { transform: "translateY(25%)", opacity: 0 },
+const contentVariants: CustomVariantsProps = {
+  hidden: { y: "200px", opacity: 0 }, // y = translateY
   visible: {
-    transform: "translateY(0%)",
+    y: "0px",
     opacity: 1,
     transition: { duration: 1.5, ease: "linear" },
   },
 };
 
+const exploreAuraVariants: CustomVariantsProps = {
+  visible: {
+    opacity: 0,
+  },
+  auraHover: {
+    scale: 1.8,
+    opacity: 1,
+  },
+  exploreHover: {
+    scale: 0.8,
+  },
+  // chakra transition
+  hoverTransition: "all 0.4s ease-out",
+};
+
 const Home: NextPage = () => {
+  const router = useRouter();
+
   return (
     <Box
       backgroundImage={{
@@ -35,13 +54,13 @@ const Home: NextPage = () => {
         justifyItems={{ mobile: "center", desktop: "unset" }}
         gap={{ mobile: "20", desktop: "0" }}
         py="32"
+        as={motion.div}
+        variants={contentVariants}
+        layout="size"
+        initial="hidden"
+        animate="visible"
       >
-        <BoxMotion
-          textAlign={{ mobile: "center", desktop: "start" }}
-          variants={boxVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <Box textAlign={{ mobile: "center", desktop: "start" }}>
           <Box>
             <Text
               {...h5.return()}
@@ -75,9 +94,10 @@ const Home: NextPage = () => {
             Well sit back, and relax because we&#39;ll give you a truly out of
             this world experience!
           </Text>
-        </BoxMotion>
+        </Box>
 
         <Center
+          as={motion.div}
           {...h4.return()}
           fontSize={{ mobile: "14px", tablet: h4.fontSize }}
           __css={{
@@ -89,9 +109,15 @@ const Home: NextPage = () => {
           bgColor="white"
           color="custom.1"
           letterSpacing="2px"
+          onClick={() => routerShallowPush(router, "/destination")}
+          cursor="pointer"
+          variants={exploreAuraVariants}
+          whileHover="exploreHover"
+          transition={exploreAuraVariants.hoverTransition} // chakra syntax
         >
           Explore
-          <CenterMotion
+          <Center
+            as={motion.div}
             __css={{
               aspectRatio: "1",
             }}
@@ -99,19 +125,12 @@ const Home: NextPage = () => {
             height="100%"
             borderRadius="50%"
             position="absolute"
-            bgColor="rgba(255,255,255,0.1)"
+            bgColor="rgba(255,255,255,0.2)"
             mixBlendMode="normal"
-            initial={{
-              scale: 1,
-              opacity: 0,
-            }}
-            whileHover={{
-              scale: 1.5,
-              opacity: 1,
-            }}
-            transition={{
-              duration: 0.5,
-            }}
+            variants={exploreAuraVariants}
+            animate="visible"
+            whileHover="auraHover"
+            transition={exploreAuraVariants.hoverTransition} // chakra syntax
           />
         </Center>
       </Grid>

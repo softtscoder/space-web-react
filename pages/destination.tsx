@@ -15,11 +15,8 @@ import {
 import type { NextPage } from "next";
 import { h1, h2, h4, h5, nav, listSubH1, listSubH2 } from "utils";
 import {
-  BoxMotion,
-  CenterMotion,
   CustomVariantsProps,
   RotateWithZoomVariantProps,
-  TabMotion,
   _afterUnderlineStyle,
   _sxHoverAfterUnderlineStyle,
 } from "@/components/helper";
@@ -69,7 +66,7 @@ const boxVariants: CustomVariantsProps = {
   },
 };
 
-const planetVariant: RotateWithZoomVariantProps = {
+const planetVariants: RotateWithZoomVariantProps = {
   visible: {
     rotate: [0, 360],
     transition: { duration: 60, ease: "linear", repeat: Infinity }, // for rotate
@@ -120,10 +117,10 @@ const Destination: NextPage = () => {
             Pick your destination
           </Text>
           <motion.div
-            variants={planetVariant}
+            variants={planetVariants}
             animate="visible"
             whileHover="hover"
-            transition={planetVariant.hoverTransition}
+            transition={planetVariants.hoverTransition}
           >
             <NextImage
               src={`/assets/destination/image-${content[tabIndex].name}.webp`}
