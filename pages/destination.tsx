@@ -17,12 +17,14 @@ import { h1, h2, h4, h5, nav, listSubH1, listSubH2 } from "utils";
 import {
   BoxMotion,
   CenterMotion,
-  CustomVariants,
+  CustomVariantsProps,
+  RotateWithZoomVariantProps,
   TabMotion,
+  _afterUnderlineStyle,
+  _sxHoverAfterUnderlineStyle,
 } from "@/components/helper";
 import NextImage from "next/image";
 import { motion } from "framer-motion";
-import { useRouter } from "next/router";
 import React from "react";
 
 // console.log(h5);
@@ -58,7 +60,7 @@ const content = [
   },
 ];
 
-const boxVariants: CustomVariants = {
+const boxVariants: CustomVariantsProps = {
   hidden: { transform: "translateY(25%)", opacity: 0 },
   visible: {
     transform: "translateY(0%)",
@@ -67,8 +69,23 @@ const boxVariants: CustomVariants = {
   },
 };
 
+const planetVariant: RotateWithZoomVariantProps = {
+  visible: {
+    rotate: [0, 360],
+    transition: { duration: 60, ease: "linear", repeat: Infinity }, // for rotate
+  },
+  hover: {
+    scale: 1.1,
+  },
+  // for hover
+  hoverTransition: {
+    duration: 0.6,
+    ease: "easeOut",
+  },
+};
+
 const Destination: NextPage = () => {
-  const [CurrentTab, setCurrentTab] = React.useState("moon"); // first load
+  const [tabIndex, setTabIndex] = React.useState(0);
 
   return (
     <Box
@@ -103,47 +120,37 @@ const Destination: NextPage = () => {
             Pick your destination
           </Text>
           <motion.div
-            animate={{
-              rotate: [0, 360],
-              transition: { duration: 60, ease: "linear", repeat: Infinity },
-            }}
-            whileHover={{
-              scale: 1.1,
-            }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            variants={planetVariant}
+            animate="visible"
+            whileHover="hover"
+            transition={planetVariant.hoverTransition}
           >
             <NextImage
-              src={`/assets/destination/image-${CurrentTab}.webp`}
+              src={`/assets/destination/image-${content[tabIndex].name}.webp`}
               width="400"
               height="400"
             />
           </motion.div>
         </Box>
 
-        <Tabs variant="unstyled" isLazy maxW="600" color="white">
-          <TabList>
+        <Tabs
+          variant="unstyled"
+          isLazy
+          maxW="600"
+          color="white"
+          onChange={(index) => setTabIndex(index)}
+        >
+          <TabList gap="4">
             {content.map((tab, index) => (
               <Tab
                 key={`tab-${tab.name}`}
                 {...nav.return()}
-                color={CurrentTab === tab.name ? nav.color : "custom.2"}
-                onClick={() => setCurrentTab(tab.name)}
-                _selected={{
-                  borderBottom: `2px solid ${nav._bordorColor?.active}`,
+                color={index === tabIndex ? nav.color : "custom.2"}
+                position="relative"
+                _after={_afterUnderlineStyle(index === tabIndex)}
+                sx={{
+                  "&:hover:after": _sxHoverAfterUnderlineStyle(),
                 }}
-                _hover={{
-                  borderBottom: `2px solid ${nav._bordorColor?.active}`,
-                }}
-                // initial={{
-                //   scaleX: 0,
-                // }}
-                // whileHover={{
-                //   scaleX: 1,
-                // }}
-                // transition={{
-                //   duration: 0.5,
-                //   ease: "easeOut",
-                // }}
               >
                 {tab.name}
               </Tab>

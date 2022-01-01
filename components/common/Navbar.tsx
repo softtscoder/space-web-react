@@ -12,7 +12,11 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { nav } from "utils";
-import { CustomVariants } from "@/components/helper";
+import {
+  CustomVariants,
+  _afterUnderlineStyle,
+  _sxHoverAfterUnderlineStyle,
+} from "@/components/helper";
 
 const svgVariants: CustomVariants = {
   hidden: {
@@ -77,14 +81,13 @@ export const Navbar = ({}: NavbarProps) => {
           <Center
             key={`nav-${name}`}
             position="relative"
+            _after={_afterUnderlineStyle(
+              router.pathname === `/${name}` ||
+                (router.pathname === `/` && name === "home")
+            )}
             // https://github.com/chakra-ui/chakra-ui/discussions/5306
             sx={{
-              "&:hover hr": {
-                borderBottom: `2px solid ${nav._bordorColor?.hover}`,
-                transform: "scaleX(1) !important",
-                mixBlendMode: "normal",
-                opacity: "0.5",
-              },
+              "&:hover:after": _sxHoverAfterUnderlineStyle(),
             }}
           >
             <NextLink href={name === "home" ? "/" : `/${name}`}>
@@ -101,27 +104,6 @@ export const Navbar = ({}: NavbarProps) => {
                 </Text>
               </a>
             </NextLink>
-            <Divider
-              {...(router.pathname === `/${name}` ||
-              (router.pathname === `/` && name === "home")
-                ? {
-                  // active state
-                    opacity: "1",
-                    borderBottom: `2px solid ${nav._bordorColor?.active}`,
-                    transform: "scaleX(1)",
-                  }
-                : {
-                  // hover state
-                    opacity: "0.5",
-                    borderBottom: `2px solid ${nav._bordorColor?.hover}`,
-                    transform: "scaleX(0)",
-                  })}
-              position="absolute"
-              bottom="0"
-              overflow="hidden"
-              transition="transform 275ms ease"
-              aria-hidden="true"
-            />
           </Center>
         ))}
         <Divider
