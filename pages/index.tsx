@@ -19,9 +19,13 @@ const boxVariants: CustomVariants = {
 const Home: NextPage = () => {
   return (
     <Box
-      backgroundImage="/assets/home/background-home-desktop.jpg"
+      backgroundImage={{
+        mobile: "/assets/home/background-home-mobile.jpg",
+        tablet: "/assets/home/background-home-tablet.jpg",
+        desktop: "/assets/home/background-home-desktop.jpg",
+      }}
       backgroundRepeat="no-repeat"
-      backgroundSize="cover" // for big screen
+      backgroundSize="cover" // desktop: for big screen, khi debug nho chon responsive de xem cho dung
     >
       <Navbar />
       <Grid

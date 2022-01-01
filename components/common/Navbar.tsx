@@ -14,7 +14,7 @@ import React from "react";
 import { nav } from "utils";
 import { CustomVariants } from "@/components/helper";
 
-const svgVariants : CustomVariants = {
+const svgVariants: CustomVariants = {
   hidden: {
     // scale: 0,
   },
@@ -87,7 +87,7 @@ export const Navbar = ({}: NavbarProps) => {
               },
             }}
           >
-            <NextLink href={`/${name}`} as={name === "home" ? "/" : undefined}>
+            <NextLink href={name === "home" ? "/" : `/${name}`}>
               <a>
                 <Text
                   {...nav.return()}
@@ -102,13 +102,16 @@ export const Navbar = ({}: NavbarProps) => {
               </a>
             </NextLink>
             <Divider
-              {...(router.pathname === name || name === "home"
+              {...(router.pathname === `/${name}` ||
+              (router.pathname === `/` && name === "home")
                 ? {
+                  // active state
                     opacity: "1",
                     borderBottom: `2px solid ${nav._bordorColor?.active}`,
                     transform: "scaleX(1)",
                   }
                 : {
+                  // hover state
                     opacity: "0.5",
                     borderBottom: `2px solid ${nav._bordorColor?.hover}`,
                     transform: "scaleX(0)",
