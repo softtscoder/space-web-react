@@ -1,4 +1,3 @@
-import { Navbar } from "components/common";
 import {
   Box,
   Grid,
@@ -10,19 +9,22 @@ import {
   Text,
   Divider,
 } from "@chakra-ui/react";
-import { h2, h5, nav, listSubH1, listSubH2 } from "utils";
 import {
-  CustomVariantsProps,
-  RotateWithZoomVariantProps,
+  h2,
+  h5,
+  nav,
+  listSubH1,
+  listSubH2,
   _afterUnderlineStyle,
   _sxHoverAfterUnderlineStyle,
-} from "components/helper";
+  firstRenderVariants,
+  planetVariants,
+} from "utils";
 import NextImage from "next/image";
 import { motion } from "framer-motion";
 import React from "react";
 import { NextPageWithLayout } from "models";
 import { MainLayout } from "components/layout";
-
 // console.log(h5);
 
 const content = [
@@ -56,35 +58,16 @@ const content = [
   },
 ];
 
-const boxVariants: CustomVariantsProps = {
-  hidden: { transform: "translateY(25%)", opacity: 0 },
-  visible: {
-    transform: "translateY(0%)",
-    opacity: 1,
-    transition: { duration: 1.5, ease: "linear" },
-  },
-};
 
-const planetVariants: RotateWithZoomVariantProps = {
-  visible: {
-    rotate: [0, 360],
-    transition: { duration: 60, ease: "linear", repeat: Infinity }, // for rotate
-  },
-  hover: {
-    scale: 1.1,
-  },
-  // for hover
-  hoverTransition: {
-    duration: 0.6,
-    ease: "easeOut",
-  },
-};
+
+
 
 const Destination: NextPageWithLayout = () => {
   const [tabIndex, setTabIndex] = React.useState(0);
 
   return (
     <Box
+      as={motion.div}
       className="wrapper"
       backgroundImage={{
         mobile: "/assets/destination/background-destination-mobile.jpg",
@@ -93,6 +76,10 @@ const Destination: NextPageWithLayout = () => {
       }}
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
+      variants={firstRenderVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
     >
       {/* <Navbar /> */}
       <Grid

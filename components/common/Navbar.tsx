@@ -9,13 +9,11 @@ import {
 import { motion } from "framer-motion";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { nav } from "utils";
+import { nav, _afterUnderlineStyle, _sxHoverAfterUnderlineStyle } from "utils";
 import {
-  _afterUnderlineStyle,
-  _sxHoverAfterUnderlineStyle,
-  RotateWithZoomVariantProps,
   routerShallowPush,
 } from "components/helper";
+import { RotateWithZoomVariantProps } from "models";
 
 const logoVariants: RotateWithZoomVariantProps = {
   visible: {

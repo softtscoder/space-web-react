@@ -1,39 +1,21 @@
 // import styles from '../styles/Home.module.css'
-import { Navbar } from "components/common";
 import { Box, Center, Grid, Text } from "@chakra-ui/react";
-import type { NextPage } from "next";
-import { h1, h2, h4, h5 } from "utils";
-import { CustomVariantsProps, routerShallowPush } from "components/helper";
+import {
+  h1,
+  h2,
+  h4,
+  h5,
+  firstRenderVariants,
+  contentVariants,
+  exploreAuraVariants,
+} from "utils";
+import { routerShallowPush } from "components/helper";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { NextPageWithLayout } from "models";
 import { MainLayout } from "components/layout";
 
 // console.log(h5);
-
-const contentVariants: CustomVariantsProps = {
-  hidden: { y: "200px", opacity: 0 }, // y = translateY
-  visible: {
-    y: "0px",
-    opacity: 1,
-    transition: { duration: 1.5, ease: "linear" },
-  },
-};
-
-const exploreAuraVariants: CustomVariantsProps = {
-  visible: {
-    opacity: 0,
-  },
-  auraHover: {
-    scale: 1.8,
-    opacity: 1,
-  },
-  exploreHover: {
-    scale: 0.8,
-  },
-  // chakra transition
-  hoverTransition: "all 0.4s ease-out",
-};
 
 interface HomeProps {}
 
@@ -42,6 +24,7 @@ const Home: NextPageWithLayout = ({}: HomeProps) => {
 
   return (
     <Box
+      as={motion.div}
       className="wrapper"
       backgroundImage={{
         mobile: "/assets/home/background-home-mobile.jpg",
@@ -50,6 +33,10 @@ const Home: NextPageWithLayout = ({}: HomeProps) => {
       }}
       backgroundRepeat="no-repeat"
       backgroundSize="cover" // desktop: for big screen, khi debug nho chon responsive de xem cho dung
+      variants={firstRenderVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
     >
       {/* <Navbar /> */}
       <Grid
