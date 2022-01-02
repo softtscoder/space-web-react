@@ -17,7 +17,7 @@ import {
   listSubH2,
   _afterUnderlineStyle,
   _sxHoverAfterUnderlineStyle,
-  firstRenderVariants,
+  pageTransitionVariants,
   planetVariants,
 } from "utils";
 import NextImage from "next/image";
@@ -80,7 +80,7 @@ const Destination: NextPageWithLayout = () => {
         justifyItems={{ mobile: "center", desktop: "unset" }}
         gap={{ mobile: "20", desktop: "0" }}
         as={motion.div}
-        variants={firstRenderVariants}
+        variants={pageTransitionVariants}
         initial="hidden"
         animate="visible"
         exit="exit"

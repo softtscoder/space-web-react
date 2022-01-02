@@ -5,7 +5,7 @@ import {
   h2,
   h4,
   h5,
-  firstRenderVariants,
+  pageTransitionVariants,
   contentVariants,
   exploreAuraVariants,
 } from "utils";
@@ -34,7 +34,7 @@ const Home: NextPageWithLayout = ({}: HomeProps) => {
       backgroundSize="cover" // desktop: for big screen, khi debug nho chon responsive de xem cho dung
     >
       <motion.div
-        variants={firstRenderVariants}
+        variants={pageTransitionVariants}
         initial="hidden"
         animate="visible"
         exit="exit"

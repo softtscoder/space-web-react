@@ -9,26 +9,11 @@ import {
 import { motion } from "framer-motion";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { nav, _afterUnderlineStyle, _sxHoverAfterUnderlineStyle } from "utils";
+import { logoVariants, nav, _afterUnderlineStyle, _sxHoverAfterUnderlineStyle } from "utils";
 import {
   routerShallowPush,
 } from "components/helper";
-import { RotateWithZoomVariantProps } from "models";
 
-const logoVariants: RotateWithZoomVariantProps = {
-  visible: {
-    rotate: [0, 360],
-    transition: { duration: 2, ease: "linear", repeat: Infinity }, // for rotate
-  },
-  hover: {
-    scale: 1.3,
-  },
-  // for hover
-  hoverTransition: {
-    duration: 1,
-    ease: "linear",
-  },
-};
 
 // console.log(nav._bordorColor);
 export interface NavbarProps {}

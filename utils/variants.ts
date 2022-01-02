@@ -1,9 +1,9 @@
 import { CustomVariantsProps, RotateWithZoomVariantProps } from "models";
 
-export const boxVariants: CustomVariantsProps = {
-  hidden: { transform: "translateY(25%)", opacity: 0 },
+export const contentVariants: CustomVariantsProps = {
+  hidden: { y: "200px", opacity: 0 }, // y = translateY
   visible: {
-    transform: "translateY(0%)",
+    y: "0px",
     opacity: 1,
     transition: { duration: 1.5, ease: "linear" },
   },
@@ -24,7 +24,22 @@ export const planetVariants: RotateWithZoomVariantProps = {
   },
 };
 
-export const firstRenderVariants: CustomVariantsProps = {
+export const logoVariants: RotateWithZoomVariantProps = {
+  visible: {
+    rotate: [0, 360],
+    transition: { duration: 2, ease: "linear", repeat: Infinity }, // for rotate
+  },
+  hover: {
+    scale: 1.3,
+  },
+  // for hover
+  hoverTransition: {
+    duration: 1,
+    ease: "linear",
+  },
+};
+
+export const pageTransitionVariants: CustomVariantsProps = {
   hidden: {
     opacity: 0,
   },
@@ -35,15 +50,6 @@ export const firstRenderVariants: CustomVariantsProps = {
   exit: {
     // x: "-100vw",
     opacity: 0,
-    transition: { duration: 1.5, ease: "linear" },
-  },
-};
-
-export const contentVariants: CustomVariantsProps = {
-  hidden: { y: "200px", opacity: 0 }, // y = translateY
-  visible: {
-    y: "0px",
-    opacity: 1,
     transition: { duration: 1.5, ease: "linear" },
   },
 };
@@ -63,7 +69,7 @@ export const exploreAuraVariants: CustomVariantsProps = {
   hoverTransition: "all 0.4s ease-out",
 };
 
-export const firstLoadVariants = {
+export const firstHardLoadVariants = {
   // hidden: { opacity: 0, x: -200, y: 0 },
   // enter: { opacity: 1, x: 0, y: 0 },
   // exit: { opacity: 0, x: 0, y: -100 },

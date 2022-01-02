@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { LayoutProps } from "models";
-import { firstLoadVariants } from "utils";
+import { firstHardLoadVariants } from "utils";
 // import { Box } from "@chakra-ui/react";
 
 export function BaseLayout({ children }: LayoutProps) {
@@ -9,7 +9,7 @@ export function BaseLayout({ children }: LayoutProps) {
       {/* next-seo */}
 
       <motion.main
-        // variants={firstLoadVariants}
+        // variants={firstHardLoadVariants}
         // initial="hidden"
         // animate="enter"
         // exit="exit"
