@@ -17,12 +17,12 @@ a {
 
 html,
 body,
-body > div:first-child {
+/* body > div:first-child, */
+div#__next {
   height: 100%;
 }
 
-/* Production*/
-div#__next,
-div#__next > div {
+.wrapper {
   height: 100%;
+  padding: 250px 0; /* for Navbar*/
 }

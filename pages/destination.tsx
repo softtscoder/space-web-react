@@ -85,6 +85,7 @@ const Destination: NextPageWithLayout = () => {
 
   return (
     <Box
+      className="wrapper"
       backgroundImage={{
         mobile: "/assets/destination/background-destination-mobile.jpg",
         tablet: "/assets/destination/background-destination-tablet.jpg",
@@ -100,7 +101,6 @@ const Destination: NextPageWithLayout = () => {
         alignItems={{ mobile: "unset", desktop: "center" }}
         justifyItems={{ mobile: "center", desktop: "unset" }}
         gap={{ mobile: "20", desktop: "0" }}
-        py="32"
       >
         <Box>
           <Text {...h5.return()} mb="20">

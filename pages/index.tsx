@@ -35,15 +35,14 @@ const exploreAuraVariants: CustomVariantsProps = {
   hoverTransition: "all 0.4s ease-out",
 };
 
-interface HomeProps {
-
-}
+interface HomeProps {}
 
 const Home: NextPageWithLayout = ({}: HomeProps) => {
   const router = useRouter();
 
   return (
     <Box
+      className="wrapper"
       backgroundImage={{
         mobile: "/assets/home/background-home-mobile.jpg",
         tablet: "/assets/home/background-home-tablet.jpg",
@@ -59,7 +58,6 @@ const Home: NextPageWithLayout = ({}: HomeProps) => {
         alignItems={{ mobile: "unset", desktop: "end" }}
         justifyItems={{ mobile: "center", desktop: "unset" }}
         gap={{ mobile: "20", desktop: "0" }}
-        py="32"
         as={motion.div}
         variants={contentVariants}
         layout="size"
