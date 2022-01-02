@@ -1,10 +1,73 @@
 import { CustomVariantsProps, RotateWithZoomVariantProps } from "models";
 
-export const contentVariants: CustomVariantsProps = {
-  hidden: { y: "200px", opacity: 0 }, // y = translateY
+export function pageTransitionVariants(
+  mobileBreakpoint: boolean
+): CustomVariantsProps {
+  return {
+    hidden: {
+      // https://stackoverflow.com/questions/11704267/in-javascript-how-to-conditionally-add-a-member-to-an-object
+      ...(mobileBreakpoint && { y: "-50px" }),
+      ...(!mobileBreakpoint && { x: "-50px" }),
+      opacity: 0,
+    },
+    visible: {
+      ...(mobileBreakpoint && { y: "0" }),
+      ...(!mobileBreakpoint && { x: "0" }),
+      opacity: 1,
+      transition: { duration: 0.8, ease: "linear" },
+    },
+    exit: {
+      ...(mobileBreakpoint && { y: "-50px" }),
+      ...(!mobileBreakpoint && { x: "-50px" }),
+      opacity: 0,
+      transition: { duration: 0.8, ease: "linear" },
+    },
+  };
+
+  // Chi dung khi 2 mode khac nhau qua nhieu
+  // return mobileBreakpoint ? {
+  //   hidden: {
+  //     y: "-50px",
+  //     opacity: 0,
+  //   },
+  //   visible: {
+  //     y: 0,
+  //     opacity: 1,
+  //     transition: { duration: 0.8, ease: "linear" },
+  //   },
+  //   exit: {
+  //     y: "-50px",
+  //     opacity: 0,
+  //     transition: { duration: 0.8, ease: "linear" },
+  //   },
+  // } : {
+  //   hidden: {
+  //     x: "-50px",
+  //     opacity: 0,
+  //   },
+  //   visible: {
+  //     x: 0,
+  //     opacity: 1,
+  //     transition: { duration: 0.8, ease: "linear" },
+  //   },
+  //   exit: {
+  //     x: "-50px",
+  //     opacity: 0,
+  //     transition: { duration: 0.8, ease: "linear" },
+  //   },
+  // };
+}
+
+export const tabTransitionVariants: CustomVariantsProps = {
+  hidden: {
+    opacity: 0,
+  },
   visible: {
-    y: "0px",
     opacity: 1,
+    transition: { duration: 1.5, ease: "linear" },
+  },
+  exit: {
+    opacity: 0,
     transition: { duration: 1.5, ease: "linear" },
   },
 };
@@ -17,16 +80,34 @@ export const planetVariants: RotateWithZoomVariantProps = {
   hover: {
     scale: 1.1,
   },
+  drag: {
+    backgroundColor: "blue",
+  },
   // for hover
-  hoverTransition: {
-    duration: 0.6,
-    ease: "easeOut",
+  // hoverTransition: {
+  //   duration: 0.6,
+  //   ease: "easeOut",
+  // },
+  hoverTransition: "all 0.6s ease-out",
+};
+
+export const planetTransitionVariants: CustomVariantsProps = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.5, ease: "linear" },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.5, ease: "linear" },
   },
 };
 
 export const logoVariants: RotateWithZoomVariantProps = {
   visible: {
-    rotate: [0, 360],
+    rotate: 360,
     transition: { duration: 2, ease: "linear", repeat: Infinity }, // for rotate
   },
   hover: {
@@ -36,21 +117,6 @@ export const logoVariants: RotateWithZoomVariantProps = {
   hoverTransition: {
     duration: 1,
     ease: "linear",
-  },
-};
-
-export const pageTransitionVariants: CustomVariantsProps = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: { duration: 1.5, ease: "linear" },
-  },
-  exit: {
-    // x: "-100vw",
-    opacity: 0,
-    transition: { duration: 1.5, ease: "linear" },
   },
 };
 

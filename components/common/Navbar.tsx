@@ -9,11 +9,13 @@ import {
 import { motion } from "framer-motion";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { logoVariants, nav, _afterUnderlineStyle, _sxHoverAfterUnderlineStyle } from "utils";
 import {
-  routerShallowPush,
-} from "components/helper";
-
+  logoVariants,
+  nav,
+  _afterUnderlineStyle,
+  _sxHoverAfterUnderlineStyle,
+} from "utils";
+import { routerShallowPush } from "components/helper";
 
 // console.log(nav._bordorColor);
 export interface NavbarProps {}
@@ -50,18 +52,18 @@ export const Navbar = ({}: NavbarProps) => {
           height="48"
         />
       </motion.div> */}
-        <motion.img
-          src="/assets/shared/logo.svg"
-          alt="logo"
-          variants={logoVariants}
-          animate="visible"
-          whileHover="hover"
-          transition={logoVariants.hoverTransition}
-          onClick={() => routerShallowPush(router, "/")}
-          style={{
-            cursor: "pointer",
-          }}
-        />
+        <NextLink href="/">
+          <a>
+            <motion.img
+              src="/assets/shared/logo.svg"
+              alt="logo"
+              variants={logoVariants}
+              animate="visible"
+              whileHover="hover"
+              transition={logoVariants.hoverTransition}
+            />
+          </a>
+        </NextLink>
 
         <Grid
           display={{ mobile: "none", tablet: "grid" }}
@@ -87,6 +89,7 @@ export const Navbar = ({}: NavbarProps) => {
                 "&:hover:after": _sxHoverAfterUnderlineStyle(),
               }}
             >
+              {/* Next.js doesn't prefetch pages on development */}
               <NextLink href={name === "home" ? "/" : `/${name}`}>
                 <a>
                   <Text

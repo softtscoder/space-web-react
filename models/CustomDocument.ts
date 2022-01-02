@@ -13,7 +13,7 @@ import { LayoutProps } from "./common";
  * const Home: NextPageWithLayout = ({}: HomeProps)
  * ```
  */
-export type NextPageWithLayout = NextPage & {
+export type NextPageWithLayout<ComponentProps = {}> = NextPage<ComponentProps> & {
   Layout?: (props: LayoutProps) => ReactElement;
 };
 
