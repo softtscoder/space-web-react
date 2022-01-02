@@ -33,8 +33,9 @@ export const firstRenderVariants: CustomVariantsProps = {
     transition: { duration: 1.5, ease: "linear" },
   },
   exit: {
-    x: "-100vw",
-    transition: { ease: "easeInOut" },
+    // x: "-100vw",
+    opacity: 0,
+    transition: { duration: 1.5, ease: "linear" },
   },
 };
 

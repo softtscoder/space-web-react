@@ -58,16 +58,11 @@ const content = [
   },
 ];
 
-
-
-
-
 const Destination: NextPageWithLayout = () => {
   const [tabIndex, setTabIndex] = React.useState(0);
 
   return (
     <Box
-      as={motion.div}
       className="wrapper"
       backgroundImage={{
         mobile: "/assets/destination/background-destination-mobile.jpg",
@@ -76,10 +71,6 @@ const Destination: NextPageWithLayout = () => {
       }}
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
-      variants={firstRenderVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
     >
       {/* <Navbar /> */}
       <Grid
@@ -88,6 +79,11 @@ const Destination: NextPageWithLayout = () => {
         alignItems={{ mobile: "unset", desktop: "center" }}
         justifyItems={{ mobile: "center", desktop: "unset" }}
         gap={{ mobile: "20", desktop: "0" }}
+        as={motion.div}
+        variants={firstRenderVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
       >
         <Box>
           <Text {...h5.return()} mb="20">
