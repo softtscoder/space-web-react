@@ -1,7 +1,6 @@
-import { Navbar } from "@/components/common";
+import { Navbar } from "components/common";
 import {
   Box,
-  Center,
   Grid,
   Tab,
   TabList,
@@ -10,19 +9,19 @@ import {
   Tabs,
   Text,
   Divider,
-  useTab,
 } from "@chakra-ui/react";
-import type { NextPage } from "next";
-import { h1, h2, h4, h5, nav, listSubH1, listSubH2 } from "utils";
+import { h2, h5, nav, listSubH1, listSubH2 } from "utils";
 import {
   CustomVariantsProps,
   RotateWithZoomVariantProps,
   _afterUnderlineStyle,
   _sxHoverAfterUnderlineStyle,
-} from "@/components/helper";
+} from "components/helper";
 import NextImage from "next/image";
 import { motion } from "framer-motion";
 import React from "react";
+import { NextPageWithLayout } from "models";
+import { MainLayout } from "components/layout";
 
 // console.log(h5);
 
@@ -81,7 +80,7 @@ const planetVariants: RotateWithZoomVariantProps = {
   },
 };
 
-const Destination: NextPage = () => {
+const Destination: NextPageWithLayout = () => {
   const [tabIndex, setTabIndex] = React.useState(0);
 
   return (
@@ -94,7 +93,7 @@ const Destination: NextPage = () => {
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
     >
-      <Navbar />
+      {/* <Navbar /> */}
       <Grid
         autoFlow={{ mobile: "row", desktop: "column" }}
         justifyContent={{ mobile: "unset", desktop: "space-around" }}
@@ -182,4 +181,5 @@ const Destination: NextPage = () => {
   );
 };
 
+Destination.Layout = MainLayout;
 export default Destination;

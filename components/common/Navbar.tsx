@@ -14,7 +14,7 @@ import {
   _sxHoverAfterUnderlineStyle,
   RotateWithZoomVariantProps,
   routerShallowPush,
-} from "@/components/helper";
+} from "components/helper";
 
 const logoVariants: RotateWithZoomVariantProps = {
   visible: {
@@ -37,7 +37,6 @@ export interface NavbarProps {}
 export const Navbar = ({}: NavbarProps) => {
   const router = useRouter();
 
-
   return (
     <Grid
       autoFlow="column"
@@ -48,7 +47,9 @@ export const Navbar = ({}: NavbarProps) => {
         tablet: "0 0 0 24px",
         desktop: "20px 22.5px", // py px
       }}
-
+      position="absolute"
+      w="100%"
+      zIndex="999"
     >
       {/* Ko dung vi logo size nho
       <motion.div

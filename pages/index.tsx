@@ -1,11 +1,13 @@
 // import styles from '../styles/Home.module.css'
-import { Navbar } from "@/components/common";
+import { Navbar } from "components/common";
 import { Box, Center, Grid, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { h1, h2, h4, h5 } from "utils";
-import { CustomVariantsProps, routerShallowPush } from "@/components/helper";
+import { CustomVariantsProps, routerShallowPush } from "components/helper";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { NextPageWithLayout } from "models";
+import { MainLayout } from "components/layout";
 
 // console.log(h5);
 
@@ -33,7 +35,11 @@ const exploreAuraVariants: CustomVariantsProps = {
   hoverTransition: "all 0.4s ease-out",
 };
 
-const Home: NextPage = () => {
+interface HomeProps {
+
+}
+
+const Home: NextPageWithLayout = ({}: HomeProps) => {
   const router = useRouter();
 
   return (
@@ -46,7 +52,7 @@ const Home: NextPage = () => {
       backgroundRepeat="no-repeat"
       backgroundSize="cover" // desktop: for big screen, khi debug nho chon responsive de xem cho dung
     >
-      <Navbar />
+      {/* <Navbar /> */}
       <Grid
         autoFlow={{ mobile: "row", desktop: "column" }}
         justifyContent={{ mobile: "unset", desktop: "space-around" }}
@@ -138,4 +144,5 @@ const Home: NextPage = () => {
   );
 };
 
+Home.Layout = MainLayout;
 export default Home;

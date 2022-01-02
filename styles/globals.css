@@ -22,7 +22,7 @@ body > div:first-child {
 }
 
 /* Production*/
-/* div#__next,
+div#__next,
 div#__next > div {
   height: 100%;
-} */
+}
