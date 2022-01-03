@@ -1,8 +1,4 @@
-import {
-  Box,
-  Grid,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Grid, useMediaQuery } from "@chakra-ui/react";
 import {
   _afterUnderlineStyle,
   _sxHoverAfterUnderlineStyle,
@@ -12,11 +8,13 @@ import {
 } from "utils";
 import { motion } from "framer-motion";
 import React from "react";
-import { NextPageWithLayout } from "models";
+import { NextPageWithLayout, Planet } from "models";
 import { MainLayout } from "components/layout";
 import { GetStaticProps } from "next";
 import { SWRConfig } from "swr";
 import { PlanetImage, PlanetInfo } from "components/Destination";
+import static_data from "json/db.json";
+
 // console.log(h5);
 
 export interface DestinationProps {
@@ -72,12 +70,12 @@ Destination.Layout = MainLayout;
 export const getStaticProps: GetStaticProps<DestinationProps> = async (
   context
 ) => {
-  const planet = await FetcherJsonServer("/destination");
+  const planet = await FetcherJsonServer<Planet>("/destination");
 
   return {
     props: {
       SWRFallback: {
-        "/destination": planet,
+        "/destination": planet ? planet : static_data.destination,
       },
     },
   };
