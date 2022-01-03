@@ -14,7 +14,7 @@ import { GetStaticProps } from "next";
 import { SWRConfig } from "swr";
 import { PlanetImage, PlanetInfo } from "components/Destination";
 import static_data from "json/db.json";
-
+import { getDatabaseServer, retrieve } from "utils/firebase";
 // console.log(h5);
 
 export interface DestinationProps {
@@ -70,7 +70,7 @@ Destination.Layout = MainLayout;
 export const getStaticProps: GetStaticProps<DestinationProps> = async (
   context
 ) => {
-  const planet = await FetcherJsonServer<Planet>("/destination");
+  const planet = await retrieve<Planet>("/destination");
 
   return {
     props: {

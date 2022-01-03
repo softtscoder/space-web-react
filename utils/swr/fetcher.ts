@@ -16,6 +16,7 @@ export const FetcherImage = (url: string) => {
   });
 };
 
+// fetch type: https://stackoverflow.com/questions/41103360/how-to-use-fetch-in-typescript
 export const FetcherJsonServer = <T>(url: string) => {
   const parser = urlParser(url);
 

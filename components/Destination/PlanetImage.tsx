@@ -26,7 +26,7 @@ export interface PlanetImageProps {
 export const PlanetImage = ({ tabIndex }: PlanetImageProps) => {
   const { data: planet } = useSWR<Planet[]>("/destination");
 
-  return (
+  return planet && planet.length > 0 ? (
     <Box w="100%" position="relative">
       <Text
         {...h5.return()}
@@ -73,14 +73,16 @@ export const PlanetImage = ({ tabIndex }: PlanetImageProps) => {
             transition={planetVariants.hoverTransition} // chakra style, not framer motion
           >
             {/* <NextImage
-      src={`/assets/destination/image-${planet[tabIndex].name}.webp`}
-      width="200"
-      height="200"
-      layout="responsive"
-    /> */}
+              src={`/assets/destination/image-${planet[tabIndex].name}.webp`}
+              width="200"
+              height="200"
+              layout="responsive"
+            /> */}
           </Image>
         </motion.div>
       </AnimatePresence>
     </Box>
+  ) : (
+    <h1>PlanetImage</h1>
   );
 };
