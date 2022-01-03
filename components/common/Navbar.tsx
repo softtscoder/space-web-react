@@ -1,22 +1,42 @@
 import {
   Divider,
   Grid,
-  Box,
   Text,
   useColorModeValue,
   Center,
 } from "@chakra-ui/react";
-import NextImage from "next/image";
+import { motion } from "framer-motion";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
 import { nav } from "utils";
+import {
+  _afterUnderlineStyle,
+  _sxHoverAfterUnderlineStyle,
+  RotateWithZoomVariantProps,
+  routerShallowPush,
+} from "@/components/helper";
+
+const logoVariants: RotateWithZoomVariantProps = {
+  visible: {
+    rotate: [0, 360],
+    transition: { duration: 2, ease: "linear", repeat: Infinity }, // for rotate
+  },
+  hover: {
+    scale: 1.3,
+  },
+  // for hover
+  hoverTransition: {
+    duration: 1,
+    ease: "linear",
+  },
+};
 
 // console.log(nav._bordorColor);
 export interface NavbarProps {}
 
 export const Navbar = ({}: NavbarProps) => {
   const router = useRouter();
+
 
   return (
     <Grid
@@ -28,13 +48,33 @@ export const Navbar = ({}: NavbarProps) => {
         tablet: "0 0 0 24px",
         desktop: "20px 22.5px", // py px
       }}
+
     >
-      <NextImage
+      {/* Ko dung vi logo size nho
+      <motion.div
+        variants={logoVariants}
+        animate="visible"
+        whileHover="hover"
+        transition={logoVariants.hoverTransition}
+      >
+        <NextImage
+          src="/assets/shared/logo.svg"
+          alt="logo"
+          width="48"
+          height="48"
+        />
+      </motion.div> */}
+      <motion.img
         src="/assets/shared/logo.svg"
         alt="logo"
-        width="48"
-        height="48"
-        layout="fixed"
+        variants={logoVariants}
+        animate="visible"
+        whileHover="hover"
+        transition={logoVariants.hoverTransition}
+        onClick={() => routerShallowPush(router, "/")}
+        style={{
+          cursor: "pointer",
+        }}
       />
 
       <Grid
@@ -52,17 +92,16 @@ export const Navbar = ({}: NavbarProps) => {
           <Center
             key={`nav-${name}`}
             position="relative"
+            _after={_afterUnderlineStyle(
+              router.pathname === `/${name}` ||
+                (router.pathname === `/` && name === "home")
+            )}
             // https://github.com/chakra-ui/chakra-ui/discussions/5306
             sx={{
-              "&:hover hr": {
-                borderBottom: `2px solid ${nav._bordorColor?.hover}`,
-                transform: "scaleX(1) !important",
-                mixBlendMode: "normal",
-                opacity: "0.5",
-              },
+              "&:hover:after": _sxHoverAfterUnderlineStyle(),
             }}
           >
-            <NextLink href={`/${name}`} as={name === "home" ? "/" : undefined}>
+            <NextLink href={name === "home" ? "/" : `/${name}`}>
               <a>
                 <Text
                   {...nav.return()}
@@ -76,24 +115,6 @@ export const Navbar = ({}: NavbarProps) => {
                 </Text>
               </a>
             </NextLink>
-            <Divider
-              {...(router.pathname === name || name === "home"
-                ? {
-                    opacity: "1",
-                    borderBottom: `2px solid ${nav._bordorColor?.active}`,
-                    transform: "scaleX(1)",
-                  }
-                : {
-                    opacity: "0.5",
-                    borderBottom: `2px solid ${nav._bordorColor?.hover}`,
-                    transform: "scaleX(0)",
-                  })}
-              position="absolute"
-              bottom="0"
-              overflow="hidden"
-              transition="transform 275ms ease"
-              aria-hidden="true"
-            />
           </Center>
         ))}
         <Divider
