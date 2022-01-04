@@ -15,7 +15,6 @@ import {
   _afterUnderlineStyle,
   _sxHoverAfterUnderlineStyle,
 } from "utils";
-import { routerShallowPush } from "components/helper";
 
 // console.log(nav._bordorColor);
 export interface NavbarProps {}

@@ -1,0 +1,5 @@
+# Block all crawlers for /accounts
+User-agent: *
+Disallow: /accounts
+
+Sitemap: https://space-web-tannguyencse19.vercel.app/sitemap.xml

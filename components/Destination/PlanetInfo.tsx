@@ -17,6 +17,8 @@ import {
   Grid,
   Box,
   Text,
+  List,
+  ListItem,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction } from "react";
@@ -75,6 +77,7 @@ export const PlanetInfo = ({ TabIndex, setTabIndex }: PlanetInfoProps) => {
               exit="exit"
             >
               <Text
+                as="h2"
                 {...h2.return()}
                 fontSize={{
                   mobile: "80px",
@@ -101,18 +104,18 @@ export const PlanetInfo = ({ TabIndex, setTabIndex }: PlanetInfoProps) => {
                 autoFlow={{ mobile: "row", tablet: "column" }}
                 gap={{ mobile: "10", tablet: "unset" }}
               >
-                <Box>
-                  <Text {...listSubH2.return()} color="custom.2">
+                <List>
+                  <ListItem {...listSubH2.return()} color="custom.2">
                     avg.&nbsp;distance
-                  </Text>
-                  <Text {...listSubH1.return()}>{tab.distance}</Text>
-                </Box>
-                <Box>
-                  <Text {...listSubH2.return()} color="custom.2">
+                  </ListItem>
+                  <ListItem {...listSubH1.return()}>{tab.distance}</ListItem>
+                </List>
+                <List>
+                  <ListItem {...listSubH2.return()} color="custom.2">
                     est.&nbsp;travel time
-                  </Text>
-                  <Text {...listSubH1.return()}>{tab.travel_time}</Text>
-                </Box>
+                  </ListItem>
+                  <ListItem {...listSubH1.return()}>{tab.travel_time}</ListItem>
+                </List>
               </Grid>
             </motion.div>
           </TabPanel>

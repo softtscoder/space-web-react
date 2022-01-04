@@ -29,6 +29,7 @@ export const PlanetImage = ({ tabIndex }: PlanetImageProps) => {
   return planet && planet.length > 0 ? (
     <Box w="100%" position="relative">
       <Text
+        as="h5"
         {...h5.return()}
         fontSize={{ mobile: "16px", tablet: "20px", desktop: h5.fontSize }}
         textAlign={{ mobile: "center", tablet: "unset" }}

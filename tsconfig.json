@@ -19,7 +19,7 @@
     "jsx": "preserve",
     "baseUrl": "./", // ./ == cung folder voi file nay
     "paths": {
-      "@/utils": ["./utils/*", "./utils"]
+      "utils/*": ["./utils/*", "../utils/*"]
     },
     "incremental": true
   },
