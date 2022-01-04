@@ -1,43 +1,30 @@
 // import styles from '../styles/Home.module.css'
-import { Navbar } from "@/components/common";
-import { Box, Center, Grid, Text } from "@chakra-ui/react";
-import type { NextPage } from "next";
-import { h1, h2, h4, h5 } from "utils";
-import { CustomVariantsProps, routerShallowPush } from "@/components/helper";
+import { Box, Center, Grid, Text, useMediaQuery } from "@chakra-ui/react";
+import {
+  h1,
+  h2,
+  h4,
+  h5,
+  pageTransitionVariants,
+  exploreAuraVariants,
+} from "utils";
+import { routerShallowPush } from "components/helper";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { NextPageWithLayout } from "models";
+import { MainLayout } from "components/layout";
 
 // console.log(h5);
 
-const contentVariants: CustomVariantsProps = {
-  hidden: { y: "200px", opacity: 0 }, // y = translateY
-  visible: {
-    y: "0px",
-    opacity: 1,
-    transition: { duration: 1.5, ease: "linear" },
-  },
-};
+export interface HomeProps {}
 
-const exploreAuraVariants: CustomVariantsProps = {
-  visible: {
-    opacity: 0,
-  },
-  auraHover: {
-    scale: 1.8,
-    opacity: 1,
-  },
-  exploreHover: {
-    scale: 0.8,
-  },
-  // chakra transition
-  hoverTransition: "all 0.4s ease-out",
-};
-
-const Home: NextPage = () => {
+const Home: NextPageWithLayout<HomeProps> = ({}) => {
   const router = useRouter();
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   return (
     <Box
+      className="wrapper"
       backgroundImage={{
         mobile: "/assets/home/background-home-mobile.jpg",
         tablet: "/assets/home/background-home-tablet.jpg",
@@ -46,19 +33,17 @@ const Home: NextPage = () => {
       backgroundRepeat="no-repeat"
       backgroundSize="cover" // desktop: for big screen, khi debug nho chon responsive de xem cho dung
     >
-      <Navbar />
       <Grid
         autoFlow={{ mobile: "row", desktop: "column" }}
         justifyContent={{ mobile: "unset", desktop: "space-around" }}
         alignItems={{ mobile: "unset", desktop: "end" }}
         justifyItems={{ mobile: "center", desktop: "unset" }}
         gap={{ mobile: "20", desktop: "0" }}
-        py="32"
         as={motion.div}
-        variants={contentVariants}
-        layout="size"
+        variants={pageTransitionVariants(isMobile)}
         initial="hidden"
         animate="visible"
+        exit="exit"
       >
         <Box textAlign={{ mobile: "center", desktop: "start" }}>
           <Box>
@@ -113,6 +98,7 @@ const Home: NextPage = () => {
           cursor="pointer"
           variants={exploreAuraVariants}
           whileHover="exploreHover"
+          whileTap="exploreHover"
           transition={exploreAuraVariants.hoverTransition} // chakra syntax
         >
           Explore
@@ -130,6 +116,7 @@ const Home: NextPage = () => {
             variants={exploreAuraVariants}
             animate="visible"
             whileHover="auraHover"
+            whileTap="auraHover"
             transition={exploreAuraVariants.hoverTransition} // chakra syntax
           />
         </Center>
@@ -138,4 +125,5 @@ const Home: NextPage = () => {
   );
 };
 
+Home.Layout = MainLayout;
 export default Home;

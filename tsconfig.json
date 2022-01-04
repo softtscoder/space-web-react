@@ -19,14 +19,7 @@
     "jsx": "preserve",
     "baseUrl": "./", // ./ == cung folder voi file nay
     "paths": {
-      "@/components/*": [
-        "./components/*",
-        "../common",
-        "../helper"
-      ],
-      "@/models/*": [
-        "./models/*"
-      ],
+      "@/utils": ["./utils/*", "./utils"]
     },
     "incremental": true
   },
