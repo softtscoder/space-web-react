@@ -1,13 +1,21 @@
 import { CustomVariantsProps, RotateWithZoomVariantProps } from "models";
 
+/*
+  Notes for developer: Use `transform: translate()` careful, it cause many bug
+  (i.e: In crew.tsx, if you change viewport from desktop->tablet/mobile
+    it will cause the <Grid /> width to be loss. In reverse, change from
+    tablet/mobile->desktop will result in height loss. Because of
+    initial="hidden", which you can see below is translateX,Y)
+*/
+
 export function pageTransitionVariants(
   mobileBreakpoint: boolean
 ): CustomVariantsProps {
   return {
     hidden: {
       // https://stackoverflow.com/questions/11704267/in-javascript-how-to-conditionally-add-a-member-to-an-object
-      ...(mobileBreakpoint && { y: "-50px" }),
-      ...(!mobileBreakpoint && { x: "-50px" }),
+      // ...(mobileBreakpoint && { y: "-50px" }),
+      // ...(!mobileBreakpoint && { x: "-50px" }),
       opacity: 0,
     },
     visible: {

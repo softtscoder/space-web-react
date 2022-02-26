@@ -15,32 +15,27 @@ import {
   TabPanel,
   Divider,
   Grid,
-  Box,
   Text,
   List,
   ListItem,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction } from "react";
-import useSWR from "swr";
-import { Planet } from "models";
+import React, { Dispatch, SetStateAction } from "react";
+import { usePlanet } from "pages/destination";
+
 export interface PlanetInfoProps {
   TabIndex: number;
-  setTabIndex: Dispatch<React.SetStateAction<number>>;
+  setTabIndex: Dispatch<SetStateAction<number>>;
 }
 
 export const PlanetInfo = ({ TabIndex, setTabIndex }: PlanetInfoProps) => {
-  const { data: planet } = useSWR<Planet[]>("/destination");
-  // const { data: planet } = useSWR("/destination", {
-  //   fallbackData: static_data.destination, // if use this, remove type in useSWR<your_type>
-  // });
+  const planet = usePlanet();
 
   return planet && planet.length > 0 ? (
     <Tabs
       variant="unstyled"
       isLazy
       w={{ mobile: "360px", tablet: "600px", desktop: "500px" }}
-      color="white"
       onChange={(index) => setTabIndex(index)}
     >
       <TabList justifyContent={{ mobile: "center", desktop: "start" }} gap="4">
@@ -92,6 +87,7 @@ export const PlanetInfo = ({ TabIndex, setTabIndex }: PlanetInfoProps) => {
                   tablet: "16px",
                   desktop: "18px",
                 }}
+                m={{mobile: "0 auto", desktop: "unset"}} // textAlign helper
               >
                 {tab.content}
               </Text>
@@ -114,7 +110,7 @@ export const PlanetInfo = ({ TabIndex, setTabIndex }: PlanetInfoProps) => {
                   <ListItem {...listSubH2.return()} color="custom.2">
                     est.&nbsp;travel time
                   </ListItem>
-                  <ListItem {...listSubH1.return()}>{tab.travel_time}</ListItem>
+                  <ListItem {...listSubH1.return()}>{tab.travel}</ListItem>
                 </List>
               </Grid>
             </motion.div>

@@ -19,7 +19,7 @@ import { DefaultBlogJsonLd } from "utils/NextSeo";
 export interface HomeProps {}
 
 const Home: NextPageWithLayout<HomeProps> = ({}) => {
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
+  const [isMobileTablet] = useMediaQuery("(max-width: 1440px)");
 
   return (
     <>
@@ -64,7 +64,7 @@ const Home: NextPageWithLayout<HomeProps> = ({}) => {
           justifyItems={{ mobile: "center", desktop: "unset" }}
           gap={{ mobile: "20", desktop: "0" }}
           as={motion.div}
-          variants={pageTransitionVariants(isMobile)}
+          variants={pageTransitionVariants(isMobileTablet)}
           initial="hidden"
           animate="visible"
           exit="exit"

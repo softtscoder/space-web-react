@@ -1,8 +1,8 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { h5, planetTransitionVariants, planetVariants } from "utils";
-import useSWR from "swr";
-import { Planet } from "models";
+import React from "react";
+import { usePlanet } from "pages/destination";
 
 const PlanetDefault = [
   {
@@ -19,12 +19,17 @@ const PlanetDefault = [
   },
 ];
 
+function localStringParser(str: string) {
+  return str.toLowerCase();
+}
+
 export interface PlanetImageProps {
   tabIndex: number;
 }
 
 export const PlanetImage = ({ tabIndex }: PlanetImageProps) => {
-  const { data: planet } = useSWR<Planet[]>("/destination");
+  const planet = usePlanet();
+  const imgUrlVariable = planet && localStringParser(planet[tabIndex].name);
 
   return planet && planet.length > 0 ? (
     <Box w="100%" position="relative">
@@ -33,7 +38,7 @@ export const PlanetImage = ({ tabIndex }: PlanetImageProps) => {
         {...h5.return()}
         fontSize={{ mobile: "16px", tablet: "20px", desktop: h5.fontSize }}
         textAlign={{ mobile: "center", tablet: "unset" }}
-        mb={{ mobile: "80", tablet: "96", desktop: "16" }} // for Image
+        mb={{ mobile: "80", tablet: "96", desktop: "16" }} // for Image below
         ml={{ tablet: "10", desktop: "unset" }}
       >
         <Box
@@ -56,7 +61,7 @@ export const PlanetImage = ({ tabIndex }: PlanetImageProps) => {
           exit="exit"
         >
           <Image
-            src={`/assets/destination/image-${planet[tabIndex].name}.webp`}
+            src={`/assets/destination/image-${imgUrlVariable}.webp`}
             alt="planet-img"
             w={{ mobile: "200px", tablet: "300px", desktop: "auto" }}
             // center image: https://stackoverflow.com/a/18869078/12897204
